@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TechnicalAssessment</string>
+    <string name="desc">Beavers are second only to humans in their ability to manipulate and change their environment.
+        They can measure up to 1.3 metres long. A group of beavers is called a colony
+    </string>
+    <string name="title">Beavers</string>
+</resources>
