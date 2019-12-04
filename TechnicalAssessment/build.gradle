@@ -11,7 +11,7 @@ buildscript {
     ext.test_runner_version = '1.0.2'
     ext.expresso_version = '3.0.2'
     ext.picasso_version = '2.71828'
-    ext.mockito_version = '2.0.0'
+    ext.mockito_version = '2.7.22'
 
     repositories {
         google()

@@ -13,10 +13,9 @@ import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import com.example.technicalassessment.R
 import com.example.technicalassessment.model.Facts
-import com.example.technicalassessment.model.FactsRows
 import com.example.technicalassessment.model.Output
 import com.example.technicalassessment.repository.DataRepository
-import com.example.technicalassessment.utils.AppUtils.Companion.isConnectedToNetwork
+import com.example.technicalassessment.utils.AppUtils.Companion.getInstance
 import com.example.technicalassessment.viewmodel.ActivityViewModel
 import com.example.technicalassessment.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -91,7 +90,7 @@ class MainActivity : AppCompatActivity() {
      * Method used to check the internet connection 1st then it call the api method
      */
     private fun checkInternetAndCallApi() {
-        if (isConnectedToNetwork(this))
+        if (getInstance().isConnectedToNetwork(this))
             activityViewModel.getFacts() // call view model api call method
         else {
             showSnackMessage(getString(R.string.network_error))
@@ -103,26 +102,12 @@ class MainActivity : AppCompatActivity() {
      * @param facts list data for the adapter
      */
     private fun successFunction(facts: Facts) {
-        recyclerViewAdapter.setData(filterList(facts.rows))
+        recyclerViewAdapter.setData(getInstance().filterList(facts.rows))
         recyclerViewAdapter.notifyDataSetChanged()
         actionBar.let {
             it?.title = facts.title
         }
         showSnackMessage(getString(R.string.success_string))
     }
-
-    /**
-     * used to filter the empty list item
-     * @param rows list to filter
-     */
-    private fun filterList(rows: List<FactsRows>): List<FactsRows> {
-        val tempList: ArrayList<FactsRows> = ArrayList()
-        for (row in rows) {
-            if ((row.title != null && !row.title.isEmpty()) || (row.description != null && !row.description.isEmpty()))
-                tempList.add(row)
-        }
-        return tempList
-    }
-
 
 }
