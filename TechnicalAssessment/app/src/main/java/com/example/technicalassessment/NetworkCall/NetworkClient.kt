@@ -1,9 +1,9 @@
-package com.example.technicalassessment.NetworkCall
+package com.example.technicalassessment.networkcall
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NetworkClient {
+open class NetworkClient {
     companion object {
 
         val BASE_URL = "https://dl.dropboxusercontent.com/" // Base Url for the API

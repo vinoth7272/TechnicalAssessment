@@ -10,15 +10,20 @@ import com.example.technicalassessment.model.FactsRows
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item.view.*
-import java.lang.Exception
 
-class RecyclerViewAdapter(private var factsContentList: List<FactsRows>) :
+class RecyclerViewAdapter :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
+    private var factsContentList: List<FactsRows> = ArrayList()
+    fun setData(factsList: List<FactsRows>) {
+        factsContentList = factsList
+    }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val v = LayoutInflater.from(p0.context).inflate(R.layout.list_item, p0, false)
         return ViewHolder(v)
     }
+
 
     override fun getItemCount(): Int {
         return factsContentList.size
@@ -44,6 +49,7 @@ class RecyclerViewAdapter(private var factsContentList: List<FactsRows>) :
                         override fun onSuccess() {
                             itemView.imageView.visibility = View.VISIBLE
                         }
+
                         override fun onError(e: Exception?) {
                             println("Exception $e")
                         }

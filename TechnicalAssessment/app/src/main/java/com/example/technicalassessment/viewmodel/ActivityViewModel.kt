@@ -2,30 +2,28 @@ package com.example.technicalassessment.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.example.technicalassessment.OnFactsResponseData
 import com.example.technicalassessment.model.Facts
+import com.example.technicalassessment.model.Output
 import com.example.technicalassessment.repository.DataRepository
 
-class ActivityViewModel : ViewModel() {
-    var facts: MutableLiveData<Facts> = MutableLiveData()
-    var resultStatus: MutableLiveData<Boolean> = MutableLiveData()
-
-    private val dataRepository: DataRepository = DataRepository()
-
-    init {
-        resultStatus.value = false
-    }
+class ActivityViewModel(private var dataRepository: DataRepository) : ViewModel() {
+    var output: MutableLiveData<Output> = MutableLiveData()
 
     // used to call the dataRepository Api Method
     fun getFacts() {
-        dataRepository.getFactsData(object : DataRepository.OnFactsResponseData {
+
+        dataRepository.getFactsData(object : OnFactsResponseData {
             override fun onSuccess(data: Facts) {
-                resultStatus.value = true
-                facts.value = data
+                output.value = Output.Success(data)
             }
 
-            override fun onFailure() {
-                resultStatus.value = false
+            override fun onFailure(error: String) {
+                output.value = Output.Error(error)
             }
         })
+
     }
+
+
 }
